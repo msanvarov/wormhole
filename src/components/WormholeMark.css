@@ -1,0 +1,119 @@
+.wh-mark {
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px var(--accent-soft), inset 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.wh-mark svg {
+  display: block;
+}
+
+.wh-mark .wh-ring {
+  transform-origin: 50px 50px;
+  transform-box: view-box;
+}
+
+.wh-mark.animated .r1 {
+  animation: wh-spin 22s linear infinite;
+}
+
+.wh-mark.animated .r2 {
+  animation: wh-spin 14s linear infinite reverse;
+}
+
+.wh-mark.animated .r3 {
+  animation: wh-spin 9s linear infinite;
+}
+
+.wh-mark.animated .r4 {
+  animation: wh-spin 5s linear infinite reverse;
+}
+
+.wh-mark.animated.active {
+  box-shadow: 0 0 22px rgba(167, 139, 250, 0.5), inset 0 0 14px rgba(0, 0, 0, 0.55);
+  animation: wh-breathe 1.6s ease-in-out infinite;
+}
+
+.wh-mark.animated.active .r1 {
+  animation-duration: 6s;
+}
+.wh-mark.animated.active .r2 {
+  animation-duration: 3.6s;
+}
+.wh-mark.animated.active .r3 {
+  animation-duration: 2.2s;
+}
+.wh-mark.animated.active .r4 {
+  animation-duration: 1.2s;
+}
+
+@keyframes wh-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.04);
+    filter: brightness(1.18);
+  }
+}
+
+@keyframes wh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wh-mark.animated .wh-ring {
+    animation: none;
+  }
+}
+
+.wh-hero {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+}
+
+.wh-hero::before {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    var(--accent-soft) 0%,
+    transparent 65%
+  );
+  animation: wh-pulse 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.wh-hero .wh-mark {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes wh-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wh-hero::before {
+    animation: none;
+  }
+}

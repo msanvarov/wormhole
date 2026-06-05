@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none" stroke="currentColor" role="img" aria-label="Wormhole">
+  <circle cx="128" cy="128" r="116" stroke-width="2" opacity="0.95"/>
+  <circle cx="128" cy="128" r="94" stroke-width="1.6" opacity="0.78" stroke-dasharray="6 12"/>
+  <circle cx="128" cy="128" r="70" stroke-width="1.4" opacity="0.62"/>
+  <circle cx="128" cy="128" r="48" stroke-width="1.2" opacity="0.5" stroke-dasharray="4 8"/>
+  <circle cx="128" cy="128" r="28" stroke-width="1" opacity="0.4"/>
+  <circle cx="128" cy="128" r="12" stroke-width="0.9" opacity="0.35" stroke-dasharray="2 4"/>
+  <circle cx="128" cy="128" r="3.5" fill="currentColor" stroke="none"/>
+</svg>

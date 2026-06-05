@@ -1,0 +1,6 @@
+@import '../styles/tokens.css';
+
+html,
+body {
+  height: 100%;
+}
