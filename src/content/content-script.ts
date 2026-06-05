@@ -6,6 +6,12 @@ let lastSelectionText = "";
 
 function clearButton() {
   if (currentButton) {
+    try {
+      const el = currentButton as HTMLDivElement & { hidePopover?: () => void };
+      if (typeof el.hidePopover === "function") el.hidePopover();
+    } catch {
+      // not open, ignore
+    }
     currentButton.remove();
     currentButton = null;
   }
@@ -95,14 +101,27 @@ function showButton(x: number, y: number, text: string) {
   btn.setAttribute("aria-label", "Save highlight to Wormhole");
   btn.textContent = "Save";
 
+  try {
+    btn.setAttribute("popover", "manual");
+  } catch {
+    // popover not supported; high z-index alone will have to do
+  }
+
   Object.assign(btn.style, {
     position: "fixed",
     top: `${y}px`,
     left: `${x}px`,
+    right: "auto",
+    bottom: "auto",
+    inset: "auto",
+    margin: "0",
     zIndex: "2147483647",
+    isolation: "isolate",
+    contain: "layout",
     background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
     color: "#fff",
     padding: "6px 12px",
+    border: "none",
     borderRadius: "999px",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
     fontSize: "12px",
@@ -111,12 +130,16 @@ function showButton(x: number, y: number, text: string) {
     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2)",
     cursor: "pointer",
     userSelect: "none",
+    pointerEvents: "auto",
     transition: "transform 120ms ease-out, opacity 120ms ease-out",
     opacity: "0",
     transform: "translateY(4px)",
     display: "inline-flex",
     alignItems: "center",
     gap: "6px",
+    width: "auto",
+    height: "auto",
+    overflow: "visible",
   } as Partial<CSSStyleDeclaration>);
 
   const dot = document.createElement("span");
@@ -143,8 +166,17 @@ function showButton(x: number, y: number, text: string) {
     flash(btn);
   });
 
-  document.body.appendChild(btn);
+  const host = document.documentElement || document.body;
+  host.appendChild(btn);
   currentButton = btn;
+
+  try {
+    if (typeof (btn as HTMLDivElement & { showPopover?: () => void }).showPopover === "function") {
+      (btn as HTMLDivElement & { showPopover: () => void }).showPopover();
+    }
+  } catch {
+    // popover already open or feature unavailable
+  }
 
   requestAnimationFrame(() => {
     btn.style.opacity = "1";
