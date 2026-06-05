@@ -1,13 +1,13 @@
-import type { PageKind } from './types'
+import type { PageKind } from "./types";
 
 interface Rule {
-  kind: PageKind
-  test: (host: string, path: string) => boolean
+  kind: PageKind;
+  test: (host: string, path: string) => boolean;
 }
 
 const RULES: Rule[] = [
   {
-    kind: 'conversation',
+    kind: "conversation",
     test: (h) =>
       /(^|\.)slack\.com$/.test(h) ||
       /(^|\.)discord\.com$/.test(h) ||
@@ -23,16 +23,16 @@ const RULES: Rule[] = [
       /(^|\.)claude\.ai$/.test(h),
   },
   {
-    kind: 'search',
+    kind: "search",
     test: (h, p) =>
-      (h.endsWith('google.com') && p.startsWith('/search')) ||
+      (h.endsWith("google.com") && p.startsWith("/search")) ||
       /(^|\.)duckduckgo\.com$/.test(h) ||
       /(^|\.)bing\.com$/.test(h) ||
       /(^|\.)kagi\.com$/.test(h) ||
       /(^|\.)perplexity\.ai$/.test(h),
   },
   {
-    kind: 'code',
+    kind: "code",
     test: (h) =>
       /(^|\.)github\.com$/.test(h) ||
       /(^|\.)gitlab\.com$/.test(h) ||
@@ -43,7 +43,7 @@ const RULES: Rule[] = [
       /(^|\.)stackblitz\.com$/.test(h),
   },
   {
-    kind: 'docs',
+    kind: "docs",
     test: (h) =>
       /(^|\.)docs\.google\.com$/.test(h) ||
       /(^|\.)sheets\.google\.com$/.test(h) ||
@@ -58,7 +58,7 @@ const RULES: Rule[] = [
       /(^|\.)linear\.app$/.test(h),
   },
   {
-    kind: 'shopping',
+    kind: "shopping",
     test: (h) =>
       /(^|\.)amazon\.[a-z.]+$/.test(h) ||
       /(^|\.)ebay\.[a-z.]+$/.test(h) ||
@@ -75,7 +75,7 @@ const RULES: Rule[] = [
       /(^|\.)edmunds\.com$/.test(h),
   },
   {
-    kind: 'social',
+    kind: "social",
     test: (h) =>
       /(^|\.)twitter\.com$/.test(h) ||
       /(^|\.)x\.com$/.test(h) ||
@@ -90,7 +90,7 @@ const RULES: Rule[] = [
       /(^|\.)news\.ycombinator\.com$/.test(h),
   },
   {
-    kind: 'media',
+    kind: "media",
     test: (h) =>
       /(^|\.)youtube\.com$/.test(h) ||
       /(^|\.)youtu\.be$/.test(h) ||
@@ -101,26 +101,26 @@ const RULES: Rule[] = [
       /(^|\.)twitch\.tv$/.test(h) ||
       /(^|\.)vimeo\.com$/.test(h),
   },
-]
+];
 
 export function inferKind(url: string): PageKind {
   try {
-    const u = new URL(url)
-    const host = u.hostname.toLowerCase()
-    const path = u.pathname.toLowerCase()
+    const u = new URL(url);
+    const host = u.hostname.toLowerCase();
+    const path = u.pathname.toLowerCase();
     for (const r of RULES) {
-      if (r.test(host, path)) return r.kind
+      if (r.test(host, path)) return r.kind;
     }
-    return 'site'
+    return "site";
   } catch {
-    return 'site'
+    return "site";
   }
 }
 
 export function hostOf(url: string): string {
   try {
-    return new URL(url).hostname.replace(/^www\./, '')
+    return new URL(url).hostname.replace(/^www\./, "");
   } catch {
-    return url
+    return url;
   }
 }

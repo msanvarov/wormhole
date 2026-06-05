@@ -1,31 +1,31 @@
-import { useMemo } from 'react'
-import { hostOf } from '@/lib/kinds'
-import { Storage } from '@/lib/storage'
-import type { Highlight } from '@/lib/types'
-import './Journey.css'
+import { useMemo } from "react";
+import { hostOf } from "@/lib/kinds";
+import { Storage } from "@/lib/storage";
+import type { Highlight } from "@/lib/types";
+import "./Journey.css";
 
 interface Props {
-  highlights: Highlight[]
-  onChange: () => void
+  highlights: Highlight[];
+  onChange: () => void;
 }
 
 export function Highlights({ highlights, onChange }: Props) {
   const grouped = useMemo(() => {
-    const m = new Map<string, { title: string; url: string; items: Highlight[] }>()
+    const m = new Map<string, { title: string; url: string; items: Highlight[] }>();
     for (const h of highlights) {
-      const entry = m.get(h.url) ?? { title: h.title, url: h.url, items: [] }
-      entry.items.push(h)
-      m.set(h.url, entry)
+      const entry = m.get(h.url) ?? { title: h.title, url: h.url, items: [] };
+      entry.items.push(h);
+      m.set(h.url, entry);
     }
-    const list = Array.from(m.values())
-    for (const g of list) g.items.sort((a, b) => b.capturedAt - a.capturedAt)
-    list.sort((a, b) => b.items[0].capturedAt - a.items[0].capturedAt)
-    return list
-  }, [highlights])
+    const list = Array.from(m.values());
+    for (const g of list) g.items.sort((a, b) => b.capturedAt - a.capturedAt);
+    list.sort((a, b) => b.items[0].capturedAt - a.items[0].capturedAt);
+    return list;
+  }, [highlights]);
 
   async function remove(id: string) {
-    await Storage.deleteHighlight(id)
-    onChange()
+    await Storage.deleteHighlight(id);
+    onChange();
   }
 
   if (!highlights.length) {
@@ -33,11 +33,11 @@ export function Highlights({ highlights, onChange }: Props) {
       <div className="journey-empty">
         <p>No highlights yet.</p>
         <p className="hint">
-          Highlight any text on a page — a small Save chip appears. Click it (or press
-          ⌘⇧H / Ctrl⇧H) to capture the snippet here.
+          Highlight any text on a page — a small Save chip appears. Click it (or press ⌘⇧H / Ctrl⇧H)
+          to capture the snippet here.
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -64,16 +64,16 @@ export function Highlights({ highlights, onChange }: Props) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 function formatRelative(t: number): string {
-  const diff = Date.now() - t
-  if (diff < 60_000) return 'just now'
-  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`
-  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`
-  const days = Math.floor(diff / 86_400_000)
-  if (days < 7) return `${days}d ago`
-  const d = new Date(t)
-  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+  const diff = Date.now() - t;
+  if (diff < 60_000) return "just now";
+  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
+  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;
+  const days = Math.floor(diff / 86_400_000);
+  if (days < 7) return `${days}d ago`;
+  const d = new Date(t);
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }

@@ -4,50 +4,45 @@
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 0 16px var(--accent-soft), inset 0 0 12px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 18px rgba(59, 130, 246, 0.35),
+    inset 0 0 14px rgba(0, 0, 0, 0.45);
 }
 
 .wh-mark svg {
   display: block;
 }
 
-.wh-mark .wh-ring {
-  transform-origin: 50px 50px;
+.wh-mark .wh-swirl {
+  transform-origin: 100px 100px;
   transform-box: view-box;
 }
 
-.wh-mark.animated .r1 {
-  animation: wh-spin 22s linear infinite;
+.wh-mark.animated .wh-swirl {
+  animation: wh-spin 6s linear infinite;
 }
 
-.wh-mark.animated .r2 {
-  animation: wh-spin 14s linear infinite reverse;
+@keyframes wh-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.wh-mark.animated .r3 {
-  animation: wh-spin 9s linear infinite;
-}
-
-.wh-mark.animated .r4 {
-  animation: wh-spin 5s linear infinite reverse;
+@media (prefers-reduced-motion: reduce) {
+  .wh-mark.animated .wh-swirl {
+    animation: none;
+  }
 }
 
 .wh-mark.animated.active {
-  box-shadow: 0 0 22px rgba(167, 139, 250, 0.5), inset 0 0 14px rgba(0, 0, 0, 0.55);
+  box-shadow:
+    0 0 26px rgba(96, 165, 250, 0.65),
+    inset 0 0 16px rgba(0, 0, 0, 0.5);
   animation: wh-breathe 1.6s ease-in-out infinite;
 }
 
-.wh-mark.animated.active .r1 {
-  animation-duration: 6s;
-}
-.wh-mark.animated.active .r2 {
-  animation-duration: 3.6s;
-}
-.wh-mark.animated.active .r3 {
-  animation-duration: 2.2s;
-}
-.wh-mark.animated.active .r4 {
-  animation-duration: 1.2s;
+.wh-mark.animated.active .wh-swirl {
+  animation-duration: 1.8s;
 }
 
 @keyframes wh-breathe {
@@ -62,18 +57,6 @@
   }
 }
 
-@keyframes wh-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wh-mark.animated .wh-ring {
-    animation: none;
-  }
-}
-
 .wh-hero {
   position: relative;
   width: 160px;
@@ -82,14 +65,15 @@
 }
 
 .wh-hero::before {
-  content: '';
+  content: "";
   position: absolute;
-  inset: -28px;
+  inset: -32px;
   border-radius: 50%;
   background: radial-gradient(
     circle at center,
-    var(--accent-soft) 0%,
-    transparent 65%
+    rgba(59, 130, 246, 0.32) 0%,
+    rgba(59, 130, 246, 0.08) 45%,
+    transparent 70%
   );
   animation: wh-pulse 4.5s ease-in-out infinite;
   pointer-events: none;
@@ -114,6 +98,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wh-hero::before {
+    animation: none;
+  }
+  .wh-mark.animated.active {
     animation: none;
   }
 }

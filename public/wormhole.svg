@@ -1,48 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Wormhole">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="Wormhole">
   <defs>
-    <radialGradient id="wh-core" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#050507"/>
-      <stop offset="22%" stop-color="#2e1065"/>
-      <stop offset="52%" stop-color="#6d28d9"/>
-      <stop offset="82%" stop-color="#a78bfa"/>
-      <stop offset="100%" stop-color="#c4b5fd"/>
+    <radialGradient id="wh-bg" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="65%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
     </radialGradient>
     <radialGradient id="wh-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.55"/>
-      <stop offset="55%" stop-color="#a78bfa" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#1d4ed8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="wh-spark" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="55%" stop-color="#ddd6fe"/>
-      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="wh-arm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f9ff"/>
+      <stop offset="55%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </linearGradient>
   </defs>
 
-  <circle cx="128" cy="128" r="128" fill="url(#wh-glow)"/>
-  <circle cx="128" cy="128" r="116" fill="url(#wh-core)"/>
+  <circle cx="250" cy="250" r="248" fill="url(#wh-glow)"/>
+  <circle cx="250" cy="250" r="232" fill="url(#wh-bg)"/>
 
-  <g fill="none" stroke-linecap="round">
-    <circle cx="128" cy="128" r="98" stroke="#ffffff" stroke-opacity="0.13" stroke-width="2" stroke-dasharray="6 14">
-      <animateTransform attributeName="transform" type="rotate" from="0 128 128" to="360 128 128" dur="40s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="128" cy="128" r="76" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.8" stroke-dasharray="5 11">
-      <animateTransform attributeName="transform" type="rotate" from="360 128 128" to="0 128 128" dur="26s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="128" cy="128" r="54" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1.5" stroke-dasharray="4 9">
-      <animateTransform attributeName="transform" type="rotate" from="0 128 128" to="360 128 128" dur="16s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="128" cy="128" r="34" stroke="#ffffff" stroke-opacity="0.48" stroke-width="1.2" stroke-dasharray="3 7">
-      <animateTransform attributeName="transform" type="rotate" from="360 128 128" to="0 128 128" dur="9s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="128" cy="128" r="18" stroke="#ffffff" stroke-opacity="0.65" stroke-width="1" stroke-dasharray="2 4">
-      <animateTransform attributeName="transform" type="rotate" from="0 128 128" to="360 128 128" dur="5s" repeatCount="indefinite"/>
-    </circle>
+  <g transform-origin="250 250">
+    <g>
+      <path
+        d="M 250 20 Q 480 20 480 250 Q 480 405 330 420 Q 250 420 250 340 Q 250 275 330 275 Q 375 275 360 330"
+        fill="none"
+        stroke="url(#wh-arm)"
+        stroke-width="45"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M 250 20 Q 480 20 480 250 Q 480 405 330 420 Q 250 420 250 340 Q 250 275 330 275 Q 375 275 360 330"
+        fill="none"
+        stroke="url(#wh-arm)"
+        stroke-width="45"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        transform="rotate(180 250 250)"
+      />
+    </g>
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 250 250"
+      to="360 250 250"
+      dur="6s"
+      repeatCount="indefinite"
+    />
   </g>
 
-  <circle cx="128" cy="128" r="9" fill="url(#wh-spark)">
-    <animate attributeName="r" values="7;10;7" dur="3.6s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.85;1;0.85" dur="3.6s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="128" cy="128" r="2.4" fill="#ffffff"/>
+  <circle cx="250" cy="250" r="18" fill="#ffffff" opacity="0.92"/>
+  <circle cx="250" cy="250" r="8" fill="#ffffff"/>
 </svg>

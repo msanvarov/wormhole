@@ -1,10 +1,10 @@
 interface ChevronProps {
-  open?: boolean
+  open?: boolean;
 }
 
 export function Chevron({ open = false }: ChevronProps) {
   return (
-    <span className={'chev' + (open ? ' open' : '')} aria-hidden="true">
+    <span className={"chev" + (open ? " open" : "")} aria-hidden="true">
       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
         <path
           d="M3.5 2L6.5 5L3.5 8"
@@ -15,5 +15,5 @@ export function Chevron({ open = false }: ChevronProps) {
         />
       </svg>
     </span>
-  )
+  );
 }

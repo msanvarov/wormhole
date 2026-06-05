@@ -1,11 +1,11 @@
-import { hostOf } from '@/lib/kinds'
-import type { Journey } from '@/lib/types'
-import { Chevron } from './Chevron'
-import './Journey.css'
+import { hostOf } from "@/lib/kinds";
+import type { Journey } from "@/lib/types";
+import { Chevron } from "./Chevron";
+import "./Journey.css";
 
 interface Props {
-  journeys: Journey[]
-  onSelect: (topic: string) => void
+  journeys: Journey[];
+  onSelect: (topic: string) => void;
 }
 
 export function JourneyList({ journeys, onSelect }: Props) {
@@ -18,15 +18,13 @@ export function JourneyList({ journeys, onSelect }: Props) {
           researching a place, planning a trip) get grouped here automatically.
         </p>
       </div>
-    )
+    );
   }
 
   return (
     <div className="journey-list">
       {journeys.map((j) => {
-        const recentHost = j.entries.length
-          ? hostOf(j.entries[j.entries.length - 1].url)
-          : ''
+        const recentHost = j.entries.length ? hostOf(j.entries[j.entries.length - 1].url) : "";
         return (
           <button key={j.topic} className="journey-card" onClick={() => onSelect(j.topic)}>
             <div className="journey-card-head">
@@ -35,13 +33,13 @@ export function JourneyList({ journeys, onSelect }: Props) {
             </div>
             <div className="journey-card-meta">
               <span>
-                {j.entries.length} stop{j.entries.length === 1 ? '' : 's'}
+                {j.entries.length} stop{j.entries.length === 1 ? "" : "s"}
               </span>
               {j.people.length > 0 && (
                 <>
                   <span className="sep">·</span>
                   <span>
-                    {j.people.length} {j.people.length === 1 ? 'person' : 'people'}
+                    {j.people.length} {j.people.length === 1 ? "person" : "people"}
                   </span>
                 </>
               )}
@@ -49,7 +47,7 @@ export function JourneyList({ journeys, onSelect }: Props) {
                 <>
                   <span className="sep">·</span>
                   <span>
-                    {j.highlightCount} highlight{j.highlightCount === 1 ? '' : 's'}
+                    {j.highlightCount} highlight{j.highlightCount === 1 ? "" : "s"}
                   </span>
                 </>
               )}
@@ -61,8 +59,8 @@ export function JourneyList({ journeys, onSelect }: Props) {
               )}
             </div>
           </button>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

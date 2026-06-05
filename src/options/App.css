@@ -2,6 +2,16 @@
   max-width: 620px;
   margin: 0 auto;
   padding: 64px 28px 96px;
+  position: relative;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--accent-soft) 0%, transparent 60%);
+  z-index: -1;
 }
 
 .loading {
@@ -13,22 +23,18 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.brand-mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent-grad-from) 0%, var(--accent-grad-to) 100%);
-  box-shadow: 0 0 20px var(--accent-soft);
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .brand-name {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .lede {
@@ -118,7 +124,7 @@ h2 {
 }
 
 .toggle-track::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   left: 2px;
@@ -169,7 +175,10 @@ h2 {
   font-weight: 500;
   color: var(--text-tertiary);
   border-radius: 6px;
-  transition: background var(--t-fast), color var(--t-fast), box-shadow var(--t-fast);
+  transition:
+    background var(--t-fast),
+    color var(--t-fast),
+    box-shadow var(--t-fast);
 }
 
 .segmented label:hover span {
@@ -179,7 +188,9 @@ h2 {
 .segmented input:checked + span {
   background: var(--bg-surface);
   color: var(--text-primary);
-  box-shadow: var(--shadow-sm), 0 0 0 1px var(--border-subtle);
+  box-shadow:
+    var(--shadow-sm),
+    0 0 0 1px var(--border-subtle);
 }
 
 .segmented input:focus-visible + span {
@@ -212,7 +223,9 @@ textarea {
   font-size: 13px;
   font-family: inherit;
   outline: none;
-  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  transition:
+    border-color var(--t-fast),
+    box-shadow var(--t-fast);
 }
 
 .field input::placeholder,
@@ -257,7 +270,9 @@ textarea:focus {
   color: var(--text-secondary);
   font-size: 12px;
   font-weight: 500;
-  transition: background var(--t-fast), color var(--t-fast);
+  transition:
+    background var(--t-fast),
+    color var(--t-fast);
 }
 
 .reveal-btn:hover {
@@ -287,7 +302,10 @@ textarea {
   font-size: 12.5px;
   font-weight: 500;
   letter-spacing: -0.005em;
-  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast),
+  transition:
+    background var(--t-fast),
+    color var(--t-fast),
+    transform var(--t-fast),
     box-shadow var(--t-fast);
 }
 
@@ -296,19 +314,17 @@ textarea {
 }
 
 .actions .primary {
-  background: linear-gradient(
-    135deg,
-    var(--accent-grad-from) 0%,
-    var(--accent-grad-to) 100%
-  );
+  background: linear-gradient(135deg, var(--accent-grad-from) 0%, var(--accent-grad-to) 100%);
   color: #ffffff;
-  box-shadow: 0 4px 16px var(--accent-soft), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 16px var(--accent-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
 }
 
 .actions .primary::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(
@@ -321,7 +337,9 @@ textarea {
 
 .actions .primary:hover {
   filter: brightness(1.08);
-  box-shadow: 0 6px 22px var(--accent-soft), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 6px 22px var(--accent-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .actions .ghost {
@@ -361,11 +379,7 @@ code {
 
 .page-credit a {
   font-weight: 500;
-  background: linear-gradient(
-    90deg,
-    var(--accent-grad-from),
-    var(--accent-grad-to)
-  );
+  background: linear-gradient(90deg, var(--accent-grad-from), var(--accent-grad-to));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -375,15 +389,4 @@ code {
 
 .page-credit a:hover {
   opacity: 0.8;
-}
-
-.brand-name {
-  background: linear-gradient(
-    135deg,
-    var(--text-primary) 0%,
-    var(--accent) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }

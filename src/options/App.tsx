@@ -1,50 +1,51 @@
-import { useEffect, useState } from 'react'
-import { Storage } from '@/lib/storage'
-import { DEFAULT_MODELS, type Provider, type Settings } from '@/lib/types'
-import './App.css'
+import { useEffect, useState } from "react";
+import { WormholeMark } from "@/components/WormholeMark";
+import { Storage } from "@/lib/storage";
+import { DEFAULT_MODELS, type Provider, type Settings } from "@/lib/types";
+import "./App.css";
 
 export default function App() {
-  const [settings, setSettings] = useState<Settings | null>(null)
-  const [blacklistText, setBlacklistText] = useState('')
-  const [savedAt, setSavedAt] = useState<number | null>(null)
-  const [revealKey, setRevealKey] = useState(false)
+  const [settings, setSettings] = useState<Settings | null>(null);
+  const [blacklistText, setBlacklistText] = useState("");
+  const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [revealKey, setRevealKey] = useState(false);
 
   useEffect(() => {
     void Storage.getSettings().then((s) => {
-      setSettings(s)
-      setBlacklistText(s.blacklist.join('\n'))
-    })
-  }, [])
+      setSettings(s);
+      setBlacklistText(s.blacklist.join("\n"));
+    });
+  }, []);
 
-  if (!settings) return <div className="loading">Loading…</div>
+  if (!settings) return <div className="loading">Loading…</div>;
 
   function update<K extends keyof Settings>(key: K, value: Settings[K]) {
-    setSettings((prev) => (prev ? { ...prev, [key]: value } : prev))
+    setSettings((prev) => (prev ? { ...prev, [key]: value } : prev));
   }
 
   async function save() {
-    if (!settings) return
+    if (!settings) return;
     const blacklist = blacklistText
-      .split('\n')
+      .split("\n")
       .map((s) => s.trim())
-      .filter(Boolean)
-    const next: Settings = { ...settings, blacklist }
-    await Storage.setSettings(next)
-    setSettings(next)
-    setSavedAt(Date.now())
-    window.setTimeout(() => setSavedAt(null), 2400)
+      .filter(Boolean);
+    const next: Settings = { ...settings, blacklist };
+    await Storage.setSettings(next);
+    setSettings(next);
+    setSavedAt(Date.now());
+    window.setTimeout(() => setSavedAt(null), 2400);
   }
 
   async function clearAll() {
-    if (!confirm('Delete all captured pages and the ontology? This cannot be undone.')) return
-    await chrome.runtime.sendMessage({ type: 'clear' })
-    alert('Cleared.')
+    if (!confirm("Delete all captured pages and the ontology? This cannot be undone.")) return;
+    await chrome.runtime.sendMessage({ type: "clear" });
+    alert("Cleared.");
   }
 
   function onProviderChange(p: Provider) {
-    if (!settings) return
+    if (!settings) return;
     const shouldUpdateModel =
-      settings.model === DEFAULT_MODELS.anthropic || settings.model === DEFAULT_MODELS.openai
+      settings.model === DEFAULT_MODELS.anthropic || settings.model === DEFAULT_MODELS.openai;
     setSettings((prev) =>
       prev
         ? {
@@ -53,13 +54,13 @@ export default function App() {
             model: shouldUpdateModel ? DEFAULT_MODELS[p] : prev.model,
           }
         : prev,
-    )
+    );
   }
 
   return (
     <div className="page">
       <div className="brand">
-        <span className="brand-mark" aria-hidden="true" />
+        <WormholeMark size={28} detailed />
         <span className="brand-name">Wormhole</span>
       </div>
 
@@ -83,7 +84,7 @@ export default function App() {
             <input
               type="checkbox"
               checked={settings.enabled}
-              onChange={(e) => update('enabled', e.target.checked)}
+              onChange={(e) => update("enabled", e.target.checked)}
             />
             <span className="toggle-track" />
           </label>
@@ -102,8 +103,8 @@ export default function App() {
             <input
               type="radio"
               name="provider"
-              checked={settings.provider === 'anthropic'}
-              onChange={() => onProviderChange('anthropic')}
+              checked={settings.provider === "anthropic"}
+              onChange={() => onProviderChange("anthropic")}
             />
             <span>Anthropic</span>
           </label>
@@ -111,8 +112,8 @@ export default function App() {
             <input
               type="radio"
               name="provider"
-              checked={settings.provider === 'openai'}
-              onChange={() => onProviderChange('openai')}
+              checked={settings.provider === "openai"}
+              onChange={() => onProviderChange("openai")}
             />
             <span>OpenAI</span>
           </label>
@@ -122,20 +123,20 @@ export default function App() {
           <span className="label">API key</span>
           <div className="key-input">
             <input
-              type={revealKey ? 'text' : 'password'}
+              type={revealKey ? "text" : "password"}
               value={settings.apiKey}
-              onChange={(e) => update('apiKey', e.target.value)}
-              placeholder={settings.provider === 'anthropic' ? 'sk-ant-…' : 'sk-…'}
+              onChange={(e) => update("apiKey", e.target.value)}
+              placeholder={settings.provider === "anthropic" ? "sk-ant-…" : "sk-…"}
               spellCheck={false}
               autoComplete="off"
             />
             <button type="button" className="reveal-btn" onClick={() => setRevealKey((v) => !v)}>
-              {revealKey ? 'Hide' : 'Show'}
+              {revealKey ? "Hide" : "Show"}
             </button>
           </div>
           <small>
-            Get a key from{' '}
-            {settings.provider === 'anthropic' ? (
+            Get a key from{" "}
+            {settings.provider === "anthropic" ? (
               <a href="https://console.anthropic.com/" target="_blank" rel="noreferrer">
                 console.anthropic.com
               </a>
@@ -153,7 +154,7 @@ export default function App() {
           <input
             type="text"
             value={settings.model}
-            onChange={(e) => update('model', e.target.value)}
+            onChange={(e) => update("model", e.target.value)}
             spellCheck={false}
           />
           <small>
@@ -172,7 +173,7 @@ export default function App() {
           rows={5}
           value={blacklistText}
           onChange={(e) => setBlacklistText(e.target.value)}
-          placeholder={'bank.com\nmail.google.com'}
+          placeholder={"bank.com\nmail.google.com"}
         />
       </section>
 
@@ -187,11 +188,11 @@ export default function App() {
       </div>
 
       <div className="page-credit">
-        Built by{' '}
+        Built by{" "}
         <a href="https://sal-anvarov.com" target="_blank" rel="noreferrer">
           Sal
         </a>
       </div>
     </div>
-  )
+  );
 }
